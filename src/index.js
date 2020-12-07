@@ -4,6 +4,9 @@ import { GameConfig } from './test';
 import { textureButtons } from './SpinButton';
 import { Cell } from './cell';
 import TWEEN from '@tweenjs/tween.js';
+import { Reel } from './Reel';
+import { STRIPS } from './Constants';
+import { Filler } from './Filler';
 
 const app = new PIXI.Application({
   width: 800,
@@ -15,31 +18,21 @@ document.body.appendChild(app.view);
 
 app.ticker.add((/*delta*/) => {
   TWEEN.update();
+  reel.update();
 });
 
-// const container = new PIXI.Container();
-
-// app.stage.addChild(container);
-
-// Create a new texture
-
-const texture2 = PIXI.Texture.from('images/continue_button_disabled.png');
-const texture1 = PIXI.Texture.from('images/continue_button_normal.png');
-
-const imgBtn = new SpinButton(
-  50,
-  50,
-  200,
-  100,
-  'SpinButton',
-  textureButtons,
-  () => {
-    imgBtn.disable();
-  }
-);
+const imgBtn = new SpinButton(500, 500, 200, 70, 'SpinButton', textureButtons, () => { reel.setSymbolToSpin(STRIPS[0].length + 3) });
 app.stage.addChild(imgBtn);
 
-const cell = new Cell(50, 200, 100, 100);
-app.stage.addChild(cell);
-console.log(imgBtn, cell);
-//imgBtn.position.set(50, 50);
+// const cell = new Cell(50, 200, 100, 100);
+const reel = new Reel(1, 50, 50, 100, 3, STRIPS[0], () => { console.log('callback') });
+app.stage.addChild(reel);
+
+// window.cell = cell;
+let arr = [1, 2, 3, 4, 5];
+let filler = new Filler(arr, 0);
+window.reel = reel;
+
+for (let i = 0; i < 20; i++) {
+  console.log(filler.getNext());
+}
