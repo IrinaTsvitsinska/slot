@@ -22,6 +22,16 @@ export class Reel extends PIXI.Container {
         this.symbolToSpin = 0;
         this.createReel();
 
+        const graphics = new PIXI.Graphics();
+        graphics.position.set(0, symbolSize / 2);
+        graphics.beginFill(0x00ffff, 0.5);
+        graphics.drawRect(-5, 0, symbolSize + 10, symbolSize * symbolAmount + 9);
+        graphics.endFill();
+        // this.graphics = graphics;
+        this.addChild(graphics);
+
+        // container.mask = graphics;
+
 
     }
 
@@ -31,7 +41,7 @@ export class Reel extends PIXI.Container {
         let symbolAmount = this.symbolAmount;
         for (let i = symbolAmount + 1; i > 0; i--) {
             let y = i * this.symbolSize - this.symbolSize;
-            let newCell = new Cell(this.symbolSize / 2, y, this.symbolSize, this.symbolSize);
+            let newCell = new Cell(0, y + this.symbolSize / 2, this.symbolSize, this.symbolSize);
             this.addChild(newCell);
             let symbolId = this.filler.getNext();
             // console.log(symbolId);
@@ -59,7 +69,7 @@ export class Reel extends PIXI.Container {
 
     moving() {
         let symbolSize = this.symbolSize;
-        console.log(this.reelPosition, symbolSize);
+        // console.log(this.reelPosition, symbolSize);
         if (this.reelPosition > this.symbolSize) {
             this.reelPosition = this.reelPosition % 3;
             this.symbolToSpin--;
@@ -77,7 +87,7 @@ export class Reel extends PIXI.Container {
             const symbol = this.cells[i];
             symbol.position.y = this.reelPosition + i * symbolSize;
         }
-        this.reelPosition += 10;
+        this.reelPosition += 1;
     }
 
     update() {

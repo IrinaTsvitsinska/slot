@@ -30,9 +30,5 @@ app.stage.addChild(reel);
 
 // window.cell = cell;
 let arr = [1, 2, 3, 4, 5];
-let filler = new Filler(arr, 0);
-window.reel = reel;
 
-for (let i = 0; i < 20; i++) {
-  console.log(filler.getNext());
-}
+window.reel = reel;
