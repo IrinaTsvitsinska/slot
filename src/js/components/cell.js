@@ -1,7 +1,6 @@
 import * as PIXI from 'pixi.js';
-import { opacity, scale } from './animUtils';
+import { opacity, scale } from '../utils/animUtils';
 import { setTextureFromUrl } from './ImageButton';
-
 import TWEEN from '@tweenjs/tween.js';
 
 const animationDuration = 3000;
@@ -9,7 +8,6 @@ const maxScale = 2;
 
 export class Cell extends PIXI.Sprite {
   constructor(x, y, width, height /*, callback*/) {
-
     const texture = setTextureFromUrl('images/cells/sym1.png');
     super(texture);
 
@@ -44,15 +42,19 @@ export class Cell extends PIXI.Sprite {
       { x: maxScale, y: maxScale },
       animationDuration / 2,
       TWEEN.Easing.Quadratic.Out
-    ).onComplete(
-      () => {
-        scale(this, { x: maxScale, y: maxScale }, { x: 1, y: 1 }, animationDuration / 2, TWEEN.Easing.Quadratic.Out);
-      });
+    ).onComplete(() => {
+      scale(
+        this,
+        { x: maxScale, y: maxScale },
+        { x: 1, y: 1 },
+        animationDuration / 2,
+        TWEEN.Easing.Quadratic.Out
+      );
+    });
   }
 
   showInActive() {
-    this.opacityHandler = opacity(
-      this, 1, 0.5, animationDuration / 2);
+    this.opacityHandler = opacity(this, 1, 0.5, animationDuration / 2);
   }
 
   reset() {
@@ -63,5 +65,4 @@ export class Cell extends PIXI.Sprite {
     this.alpha = 1;
     this.backlightVisible(false);
   }
-
 }
