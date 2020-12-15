@@ -6,10 +6,13 @@ import { Filler } from './Filler';
 export class Reel extends PIXI.Container {
   constructor(id, x, y, symbolSize, symbolAmount, strip, reelStoppedCallback) {
     super();
-
+    console.log(symbolAmount, strip);
+    let stripLength = strip.length;
+    console.log(stripLength);
     this.x = x;
     this.y = y;
-    this.stripLength = strip.length;
+    this.id = id;
+    this.stripLength = stripLength;
 
     this.symbolAmount = symbolAmount;
     this.symbolSize = symbolSize;
@@ -39,7 +42,7 @@ export class Reel extends PIXI.Container {
       let y = i * this.symbolSize - this.symbolSize;
       let newCell = new Cell(
         0,
-        y + this.symbolSize / 2,
+        y - this.symbolSize / 2,
         this.symbolSize,
         this.symbolSize
       );
@@ -54,7 +57,7 @@ export class Reel extends PIXI.Container {
   createTextures(assets) {
     const textures = {};
     const names = Object.keys(this.assets);
-    console.log(names);
+    //console.log(names);
 
     names.forEach(assetName => {
       // console.log(assets[assetName]);
@@ -76,7 +79,7 @@ export class Reel extends PIXI.Container {
 
       //console.log('this.symbolToSpin ' + this.symbolToSpin);
       const nextSymbolName = this.filler.getNext();
-      console.log('nextSymbolName ' + nextSymbolName);
+      // console.log('nextSymbolName ' + nextSymbolName);
       let lastSymbol = this.cells.pop();
       lastSymbol.setTexture(this.textures[nextSymbolName]);
       this.cells.unshift(lastSymbol);
@@ -86,7 +89,7 @@ export class Reel extends PIXI.Container {
       const symbol = this.cells[i];
       symbol.position.y = this.reelPosition + i * symbolSize;
     }
-    this.reelPosition += 1;
+    this.reelPosition += 10;
   }
 
   update() {

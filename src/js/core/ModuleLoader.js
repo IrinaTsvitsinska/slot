@@ -3,15 +3,23 @@ export class ModuleLoader {
     this.modules = [];
   }
 
-  addModule(newModule) {
-    this.modules.push(newModule);
+  addModule(moduleName, moduleInstance) {
+    this.modules.push({ moduleName, moduleInstance });
   }
 
-  loadModules() {
-    this.modules.forEach(module => {
-      module.init();
+  initModules() {
+    const loadedModules = {};
+    this.modules.forEach(({ moduleName, moduleInstance }) => {
+      moduleInstance.init();
+      loadedModules[moduleName] = moduleInstance;
     });
+    this.modules.forEach(({ moduleInstance }) => {
+      moduleInstance.load(loadedModules);
+    });
+
   }
+
+
 }
 
 export const moduleLoader = new ModuleLoader();

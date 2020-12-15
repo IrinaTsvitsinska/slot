@@ -1,6 +1,5 @@
 import * as PIXI from 'pixi.js';
 import { opacity, scale } from '../utils/animUtils';
-import { setTextureFromUrl } from './ImageButton';
 import TWEEN from '@tweenjs/tween.js';
 
 const animationDuration = 3000;
@@ -8,8 +7,7 @@ const maxScale = 2;
 
 export class Cell extends PIXI.Sprite {
   constructor(x, y, width, height /*, callback*/) {
-    const texture = setTextureFromUrl('images/cells/sym1.png');
-    super(texture);
+    super();
 
     const graphics = new PIXI.Graphics();
     graphics.lineStyle(4, 0x00ff7f, 2); // красный DC143C, светлый FFDAB9
