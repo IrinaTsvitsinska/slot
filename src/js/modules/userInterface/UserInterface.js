@@ -1,4 +1,5 @@
 import { SpinButton, textureButtons } from "../../components/SpinButton";
+import { ValueSelector } from "../../components/ValueSelector";
 import { STRIPS } from "../../config/Constants";
 import { gameEvents } from "../../core/EventSystem";
 
@@ -21,6 +22,8 @@ export class UserInterfaceModule {
         gameEvents.fire("spinButtonClick");
       }
     );
+    const valueSelector = new ValueSelector(500, 10, 100, 300, [0.1, 0.2, 0.5, 1, 2, 5], 'Credits');
     application.getStage().addChild(imgBtn);
+    application.getStage().addChild(valueSelector);
   }
 }

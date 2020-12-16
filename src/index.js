@@ -2,7 +2,6 @@ import * as PIXI from 'pixi.js';
 import { SpinButton } from './js/components/SpinButton';
 import { textureButtons } from './js/components/SpinButton';
 import TWEEN from '@tweenjs/tween.js';
-import { Reel } from './js/components/Reel';
 import { STRIPS } from './js/config/Constants';
 import { moduleLoader } from './js/core/ModuleLoader';
 
@@ -13,8 +12,6 @@ import { Application } from './js/modules/application/Application';
 
 
 
-
-// const cell = new Cell(50, 200, 100, 100);
 
 moduleLoader.addModule("application", new Application());
 moduleLoader.addModule("reels", new ReelsModule());

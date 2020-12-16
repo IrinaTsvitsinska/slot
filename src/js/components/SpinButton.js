@@ -13,7 +13,7 @@ export class SpinButton extends ImageButton {
     super(textures, callback);
 
     const style = {
-      fontSize: height - height / 4,
+      fontSize: height - height / 5,
       dropShadow: true,
       dropShadowAngle: 6.2,
       dropShadowBlur: 5,
@@ -23,11 +23,12 @@ export class SpinButton extends ImageButton {
       fill: '#443413',
     };
     const buttonLabel = new PIXI.Text(label, style);
-    buttonLabel.position.set(width + width / 10, height / 2 + height / 10);
+    buttonLabel.position.set(width, height / 2);
     buttonLabel.anchor.set(0.5);
     this.position.set(x, y);
     this.width = width;
     this.height = height;
+    console.log(width);
     this.addChild(buttonLabel);
   }
 }
