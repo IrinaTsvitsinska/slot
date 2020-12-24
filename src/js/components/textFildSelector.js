@@ -2,7 +2,7 @@ import * as PIXI from 'pixi.js';
 
 export class TextFieldValue extends PIXI.Container {
 
-    constructor(x, y, width, height, label, value) {
+    constructor({ x, y, width, height, label, value }) {
         super();
         const style = new PIXI.TextStyle({
             fill: 0x8B4513,//"lime",
@@ -25,10 +25,6 @@ export class TextFieldValue extends PIXI.Container {
 
         this.addChild(textValue);
         this.addChild(textLabel);
-    }
-
-    getValue() {
-        return this.value;
     }
 
     setValue(value) {

@@ -8,8 +8,8 @@ export const textureButtons = {
   buttonDisabled: 'images/continue_button_disabled.png',
 };
 
-export class SpinButton extends ImageButton {
-  constructor(x, y, width, height, label, textures, callback) {
+export class TextButton extends ImageButton {
+  constructor({ x, y, width, height, label, textures, callback }) {
     super(textures, callback);
 
     const style = {
@@ -23,12 +23,10 @@ export class SpinButton extends ImageButton {
       fill: '#443413',
     };
     const buttonLabel = new PIXI.Text(label, style);
-    buttonLabel.position.set(width, height / 2);
+    buttonLabel.position.set(width / 2, height / 2);
     buttonLabel.anchor.set(0.5);
     this.position.set(x, y);
-    this.width = width;
-    this.height = height;
-    console.log(width);
+
     this.addChild(buttonLabel);
   }
 }

@@ -3,7 +3,6 @@ import * as PIXI from 'pixi.js';
 export class ImageButton extends PIXI.Sprite {
   constructor(textures, callback) {
     let texture = setTextureFromUrl(textures.buttonNormal);
-
     super(texture);
     const container = new PIXI.Container();
 

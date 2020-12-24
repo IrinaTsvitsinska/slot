@@ -23,4 +23,11 @@ const ASSETS = {
   bonusSymbol: 'images/symbol/bonus.png',
 };
 
-export { STRIPS, ASSETS };
+const texturesValueSelector = {
+  buttonHover: 'images/valueSelectorButton/continue_button_hover.png',
+  buttonNormal: 'images/valueSelectorButton/continue_button_normal.png',
+  buttonPressed: 'images/valueSelectorButton/continue_button_pressed.png',
+  buttonDisabled: 'images/valueSelectorButton/continue_button_disabled.png',
+};
+
+export { STRIPS, ASSETS, texturesValueSelector };

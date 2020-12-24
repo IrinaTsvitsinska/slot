@@ -1,40 +1,41 @@
-import { Reel } from "../../components/Reel";
+
 import { ReelGroup } from "../../components/ReelGroup";
 import { STRIPS } from "../../config/Constants";
 import { gameEvents } from "../../core/EventSystem";
 
 export class ReelsModule {
   init() {
-    this.reelGroup = new ReelGroup(STRIPS, 50, 50, 150, 5, 100, 3);
-    this.reels = this.reelGroup.reels;
-    //(strips, x, y, reelHorisontalOffset, reelAmount, symbolSize, reelSymbolsAmount, allReelsStoppedCallback) 
-    // [
-    //   new Reel(1, 50, 50, 100, 3, STRIPS[0], () => {
-    //     console.log('callback');
-    //   }),
 
-    // ];
+    this.reelGroup = new ReelGroup(
+      {
+        strips: STRIPS,
+        coords: {
+          x: 50,
+          y: 50
+        },
+        reelHorisontalOffset: 150,
+        reelAmount: 5,
+        symbolSize: 100,
+        reelSymbolsAmount: 3,
+
+      });
+
   }
 
-  load({ application }) {
-    application.getStage().addChild(...this.reels);
-    // this.reels.reels.forEach(reel => {
-    //   application.getStage().addChild(reel);
-    // });
+  load({ application, server }) {
+    application.getStage().addChild(this.reelGroup);
 
-    this.reels.forEach(reel => application.addToTicker(() => {
-      reel.update();
-    }));
+    application.addToTicker(() => this.reelGroup.update());
 
     gameEvents.on("spinButtonClick", () => {
-      console.log("Ahaaaaa");
-      // reels.getReel(0).setSymbolToSpin(STRIPS[0].length + 3);
-      this.reels.forEach((reel, index) => reel.setSymbolToSpin(STRIPS[index].length + 3));
+      this.reelGroup.startSpin();
 
+      // const stopPositions = server.getStopPositions();
+      // this.reelGroup.setStopPositions(stopPositions);
     });
   }
 
   getReel(reelIndex) {
-    return this.reels[reelIndex];
+    return this.reelGroup.getReel(reelIndex);
   }
 }

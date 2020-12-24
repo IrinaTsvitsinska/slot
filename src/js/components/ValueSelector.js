@@ -1,17 +1,29 @@
 import * as PIXI from 'pixi.js';
-import { SpinButton, textureButtons } from './SpinButton';
+import { texturesValueSelector } from '../config/Constants';
+import { TextButton } from './TextButton';
 import { TextFieldValue } from './textFildSelector';
 
 export class ValueSelector extends PIXI.Container {
 
-    constructor(x, y, height, width, values, label) {
+    constructor({ x, y, height, width, values, label }) {
         super();
-        const buttonWidth = width / 5;
+        const buttonWidth = 70;
 
-        const buttonMinus = new SpinButton(0, 0, buttonWidth, height, " - ", textureButtons, () => { this.velueDecrement() });
-        const buttonPlus = new SpinButton(4 * buttonWidth, 0, buttonWidth, height, " + ", textureButtons, () => { this.velueIncrement() });
+        const buttonMinus = new TextButton(
+            { x: 0, y: 0, width: buttonWidth, height: height, label: " - ", textures: texturesValueSelector, callback: () => { this.velueDecrement() } });
+        const buttonPlus = new TextButton(
+            { x: width - buttonWidth, y: 0, width: buttonWidth, height: height, label: " + ", textures: texturesValueSelector, callback: () => { this.velueIncrement() } }
+        );
 
-        const textFildValue = new TextFieldValue(buttonWidth, 0, width - buttonWidth * 2, height - height / 10, label, values[0]);
+        const textFildValue = new TextFieldValue({
+            x: buttonWidth,
+            y: 0,
+            width: width - buttonWidth * 2,
+            height: height - height / 10,
+            label: label,
+            value: values[0],
+        });
+
 
         const graphics = new PIXI.Graphics;
         graphics.lineStyle(4, 0xA0522D, 2);
@@ -25,6 +37,7 @@ export class ValueSelector extends PIXI.Container {
         this.textValue = textFildValue;
         this.buttonMinus = buttonMinus;
         this.buttonPlus = buttonPlus;
+
 
         this.addChild(graphics);
         this.addChild(buttonMinus);
@@ -61,6 +74,6 @@ export class ValueSelector extends PIXI.Container {
     }
 
     getCurrentValue() {
-        return this.textFildValue.getValue();
+        return this.currentValue;
     }
 }

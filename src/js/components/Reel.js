@@ -4,13 +4,13 @@ import { ASSETS } from '../config/Constants';
 import { Filler } from './Filler';
 
 export class Reel extends PIXI.Container {
-  constructor(id, x, y, symbolSize, symbolAmount, strip, reelStoppedCallback) {
+  constructor({ id, coords, symbolSize, symbolAmount, strip, reelStoppedCallback }) {
     super();
     console.log(symbolAmount, strip);
     let stripLength = strip.length;
     console.log(stripLength);
-    this.x = x;
-    this.y = y;
+    this.x = coords.x;
+    this.y = coords.y;
     this.id = id;
     this.stripLength = stripLength;
 
@@ -40,11 +40,12 @@ export class Reel extends PIXI.Container {
     let symbolAmount = this.symbolAmount;
     for (let i = symbolAmount + 1; i > 0; i--) {
       let y = i * this.symbolSize - this.symbolSize;
-      let newCell = new Cell(
-        0,
-        y - this.symbolSize / 2,
-        this.symbolSize,
-        this.symbolSize
+      let newCell = new Cell({
+        x: 0,
+        y: y - this.symbolSize / 2,
+        width: this.symbolSize,
+        height: this.symbolSize
+      }
       );
       this.addChild(newCell);
       let symbolId = this.filler.getNext();
@@ -69,6 +70,8 @@ export class Reel extends PIXI.Container {
   reset() {
     this.cells.forEach(cell => cell.reset());
   }
+
+
 
   moving() {
     let symbolSize = this.symbolSize;
@@ -100,5 +103,13 @@ export class Reel extends PIXI.Container {
 
   setSymbolToSpin(symbolToSpin) {
     this.symbolToSpin = symbolToSpin;
+  }
+
+  startSpining() {
+    console.log('spinning');
+  }
+
+  startStopping() {
+    console.log('stopping');
   }
 }

@@ -6,7 +6,7 @@ const animationDuration = 3000;
 const maxScale = 2;
 
 export class Cell extends PIXI.Sprite {
-  constructor(x, y, width, height /*, callback*/) {
+  constructor({x, y, width, height} /*, callback*/) {
     super();
 
     const graphics = new PIXI.Graphics();
