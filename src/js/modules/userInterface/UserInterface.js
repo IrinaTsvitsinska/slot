@@ -1,5 +1,7 @@
+import { BigWin } from "../../components/BigWin";
 import { TextButton, textureButtons } from "../../components/TextButton";
 import { ValueSelector } from "../../components/ValueSelector";
+import { BigWinBtnTextures } from "../../config/Constants";
 import { gameEvents } from "../../core/EventSystem";
 
 export class UserInterfaceModule {
@@ -21,9 +23,11 @@ export class UserInterfaceModule {
       });
 
 
+
+    // window.bigWin = bigWin;
     const imgBtn = new TextButton(
       {
-        x: 500,
+        x: 400,
         y: 500,
         width: 400,
         height: 70,
@@ -40,9 +44,14 @@ export class UserInterfaceModule {
 
     );
 
+
+
+
     gameEvents.on("spinComplete", () => imgBtn.enable());
 
     application.getStage().addChild(imgBtn);
     application.getStage().addChild(valueSelector);
+    // application.getStage().addChild(bigWin);
+
   }
 }

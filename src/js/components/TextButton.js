@@ -26,7 +26,13 @@ export class TextButton extends ImageButton {
     buttonLabel.position.set(width / 2, height / 2);
     buttonLabel.anchor.set(0.5);
     this.position.set(x, y);
+    this.buttonLabel = buttonLabel;
 
     this.addChild(buttonLabel);
+  }
+
+  setStyle(fontSize, colorText) {
+    this.buttonLabel.style.fill = colorText;
+    this.buttonLabel.style.fontSize = fontSize;
   }
 }

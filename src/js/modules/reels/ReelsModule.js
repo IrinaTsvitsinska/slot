@@ -30,8 +30,8 @@ export class ReelsModule {
     gameEvents.on("spinButtonClick", () => {
       this.reelGroup.startSpin();
 
-      // const stopPositions = server.getStopPositions();
-      // this.reelGroup.setStopPositions(stopPositions);
+      const stopPositions = server.getStopPositions();
+      this.reelGroup.setStopPositions(stopPositions);
     });
   }
 

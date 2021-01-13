@@ -30,4 +30,13 @@ const texturesValueSelector = {
   buttonDisabled: 'images/valueSelectorButton/continue_button_disabled.png',
 };
 
-export { STRIPS, ASSETS, texturesValueSelector };
+const BigWinBtnTextures = {
+  buttonHover: 'images/bigWinBtnTextures/continue_button_hover.png',
+  buttonNormal: 'images/bigWinBtnTextures/continue_button_normal.png',
+  buttonPressed: 'images/bigWinBtnTextures/continue_button_pressed.png',
+  buttonDisabled: 'images/bigWinBtnTextures/continue_button_disabled.png',
+};
+
+const COUNTUP_DURATION = 5000;
+
+export { STRIPS, ASSETS, texturesValueSelector, COUNTUP_DURATION, BigWinBtnTextures };

@@ -112,4 +112,8 @@ export class Reel extends PIXI.Container {
   startStopping() {
     console.log('stopping');
   }
+
+  setStopPosition(stopPosition) {
+
+  }
 }

@@ -31,4 +31,9 @@ export class TextFieldValue extends PIXI.Container {
         console.log(value);
         this.textValue.text = value;
     }
+
+    setStyle(colorText, fontSize) {
+        this.style.fill = colorText;
+        this.style.fontSize = fontSize;
+    }
 }

@@ -52,7 +52,7 @@ export class ReelGroup extends PIXI.Container {
             reel.startSpining();
 
             // reel.startStopping(STRIPS[index].length + 3);
-            // reel.setSymbolToSpin();
+            reel.setSymbolToSpin();
         });
 
         this.reels.forEach((reel, index) => {
@@ -63,5 +63,11 @@ export class ReelGroup extends PIXI.Container {
 
 
         gameEvents.fire("spinComplete");
+    }
+
+    setStopPositions(stopPositions) {
+        for (let i = 0; i < stopPositions.length; i++) {
+            this.reels[i].setStopPosition(stopPositions[i]);
+        }
     }
 }
