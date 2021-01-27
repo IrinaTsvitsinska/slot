@@ -1,9 +1,12 @@
 import * as PIXI from 'pixi.js';
-import { BigWinBtnTextures } from '../config/Constants';
+import { BigWinBtnTextures, COUNTUP_DURATION } from '../config/Constants';
 import { scale } from '../utils/animUtils';
 import { Counter } from './counter';
 import { TextButton } from './TextButton';
 import { TextTitle } from './TextTitle';
+import TWEEN from '@tweenjs/tween.js';
+import { testBtnsGroup } from './testBtbsGroup';
+import { gameEvents } from '../core/EventSystem';
 
 
 export class BigWin extends PIXI.Container {
@@ -12,7 +15,8 @@ export class BigWin extends PIXI.Container {
 
         const titleText = new TextTitle({ x: width / 2, y: height / 3, text: "Big Win!!!", color: 0xFFCC33, size: "50px" });
         // const countUpAnimHolder = new Counter({ x: coords.x, y: coords.y, winValue });
-        const countUpAnimHolder = new Counter({ x: width / 2, y: height * 2 / 3 });
+        const countUpAnimHolder = new Counter({ x: width / 2, y: height * 2 / 3, width: width / 2, height: height / 2, });
+
         const background = new PIXI.Graphics();
         //background.lineStyle(4, 0xFF4500);
         background.beginFill(0xFFFFE0, 0.5); //FFFFE0 
@@ -21,6 +25,30 @@ export class BigWin extends PIXI.Container {
 
         this.countUpAnimHolder = countUpAnimHolder;
         this.position.set(coords.x, coords.y);
+        this.levels = {
+            BigWin: {
+                winValueMin: 10,
+                style: {
+                    colorText: 'green',
+                    fontSize: 30
+                }
+            },
+            MegaWin: {
+                winValueMin: 200,
+                style: {
+                    colorText: 'blue',
+                    fontSize: 30
+                }
+            },
+            SuperMegaWin: {
+                winValueMin: 500,
+                style: {
+                    colorText: 'red',
+                    fontSize: 30
+                }
+            }
+
+        }
 
         this.addChild(background);
         this.addChild(titleText);
@@ -36,6 +64,7 @@ export class BigWin extends PIXI.Container {
         this.titleText = titleText;
         this.hide();
 
+
     }
 
     start(value, callback) {
@@ -47,7 +76,17 @@ export class BigWin extends PIXI.Container {
         if (value > this.megaSuperWinValue) {
             this.isSuperMegaWin(true);
         }
-        this.countUpAnimHolder.start(value, () => { setTimeout(() => this.hide(), 2000) });
+        this.countUpAnimHolder.start(value, () => {
+            setTimeout(() => {
+                this.hide();
+
+                gameEvents.fire("bigWinEnd");
+                // callback();
+            }, 2000)
+        });
+
+
+
 
     }
 
@@ -67,84 +106,59 @@ export class BigWin extends PIXI.Container {
     }
 
     createTestButtons() {
-        const bigWinBtn = new TextButton(
-            {
-                x: 50,
-                y: 600,
-                width: 200,
-                height: 70,
-                label: ' bigWin',
-                textures: BigWinBtnTextures,
-                callback: () => {
-                    this.start(100);
-                }
+        this.buttons = new testBtnsGroup({
+            x: 0,
+            y: 0,
+            width: window.width,
+            height: window.height,
+            callbacks: {
+                bigWin: () => { this.start(100) },
+                megaWin: () => { this.start(400) },
+                superMegaWin: () => { this.start(1000) },
             }
-
-        );
-
-        const megaWinBtn = new TextButton(
-            {
-                x: 300,
-                y: 600,
-                width: 200,
-                height: 70,
-                label: ' megaWin',
-                textures: BigWinBtnTextures,
-                callback: () => {
-
-                    this.start(400);
-                }
-            }
-
-        );
-
-        const megaSuperWinBtn = new TextButton(
-            {
-                x: 550,
-                y: 600,
-                width: 200,
-                height: 70,
-                label: 'SuperWin',
-                textures: BigWinBtnTextures,
-                callback: () => {
-                    this.start(1000);
-                }
-            }
-
-        );
-
-
-        this.buttons.addChild(bigWinBtn);
-        this.buttons.addChild(megaWinBtn);
-        this.buttons.addChild(megaSuperWinBtn);
-        bigWinBtn.setStyle(22, "green");
-        megaWinBtn.setStyle(22, "blue");
-        megaSuperWinBtn.setStyle(22, "red");
+        });
+        this.addChild(this.buttons);
     }
 
     isBigWin(isTrue) {
         if (isTrue) {
-            this.countUpAnimHolder.setStyle({ colorText: 'green', fontSize: 30 });
-            this.titleText.setText('BigWin');
-            this.titleText.setStyle({ colorText: 'darkgreen', fontSize: 36 });
+            this.setStyle(this.levels.BigWin, 'Big Win');
         }
     }
 
     isMegaWin(isTrue) {
         if (isTrue) {
-            this.countUpAnimHolder.setStyle({ colorText: 'blue', fontSize: 32 });
-            this.titleText.setText('Mega Win');
-            this.titleText.setStyle({ colorText: 'darkblue', fontSize: 38 });
+            this.setStyle(this.levels.MegaWin, 'Mega Win');
         }
 
     }
 
     isSuperMegaWin(isTrue) {
         if (isTrue) {
-            this.countUpAnimHolder.setStyle({ colorText: 'red', fontSize: 34 });
-            this.titleText.setText('Super Mega Win');
-            this.titleText.setStyle({ colorText: 'FireBrick', fontSize: 40 });
+            this.setStyle(this.levels.SuperMegaWin, 'Super Mega Win');
+
         }
+
+    }
+
+    // setCurrentLevelName(winValue) {
+    //     const levelNames = this.levels.keys;
+    //     console.log(levelNames);
+    //     const currentLevel = '',
+    //     // for (let i = 0; i < levelNames.length; i++){
+    //     //     console.log(levelNames[i]);
+    //     //     // if (winValue > this.levels.levelNames[i].winValueMin) {
+    //     //     //     currentLevel = levelNames[i];
+    //     //     // }
+    //     // }
+    //     //return currentLevel;
+    // }
+
+    setStyle(level, levelTitle) {
+        console.log(level);
+        this.countUpAnimHolder.setStyle({ colorText: level.style.colorText, fontSize: level.style.fontSize });
+        this.titleText.setText(levelTitle);
+        this.titleText.setStyle({ colorText: 'Brown', fontSize: level.style.fontSize + 6 });
 
     }
 }

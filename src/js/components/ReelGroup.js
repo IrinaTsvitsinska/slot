@@ -57,7 +57,7 @@ export class ReelGroup extends PIXI.Container {
 
         this.reels.forEach((reel, index) => {
             setTimeout(() => {
-                this.reels[0].startStopping(STRIPS[index].length + 3);
+                this.reels[index].startStopping(STRIPS[index].length + 3);
             }, 1000);
         });
 

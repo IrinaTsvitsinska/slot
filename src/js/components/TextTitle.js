@@ -1,7 +1,7 @@
 import * as PIXI from 'pixi.js';
 
 export class TextTitle extends PIXI.Container {
-    constructor({ x = 0, y = 0, text = "", color = 0x000000, size = "20px" }) {
+    constructor({ x = 0, y = 0, width, height, text = "", color = 0x000000, size = "20px" }) {
         super();
         const style = new PIXI.TextStyle({
             wordWrap: true,
@@ -10,9 +10,13 @@ export class TextTitle extends PIXI.Container {
             fontSize: size
         });
         const textItem = new PIXI.Text(text, style);
+        this.width = width;
+        this.height = height;
 
         this.position.set(x, y);
+
         textItem.anchor.set(0.5);
+
 
         this.addChild(textItem);
 

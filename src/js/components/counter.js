@@ -8,13 +8,13 @@ import { opacity, scale } from '../utils/animUtils';
 
 export class Counter extends PIXI.Container {
 
-    constructor({ x, y }) {
+    constructor({ x, y, width, height, }) {
         super();
-        const countUpText = new TextTitle({ x: x, y: y, text: "", color: 0xFF4500, size: "50px" });
+        const countUpText = new TextTitle({ x: x, y: y, width: width, height: height, text: "", color: 0xFF4500, size: "50px" });
         this.countUpText = countUpText;
 
-
         this.addChild(countUpText);
+        this.hide();
     }
 
     start(value, callback) {

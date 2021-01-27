@@ -6,9 +6,8 @@ import { Filler } from './Filler';
 export class Reel extends PIXI.Container {
   constructor({ id, coords, symbolSize, symbolAmount, strip, reelStoppedCallback }) {
     super();
-    console.log(symbolAmount, strip);
+
     let stripLength = strip.length;
-    console.log(stripLength);
     this.x = coords.x;
     this.y = coords.y;
     this.id = id;
@@ -32,7 +31,7 @@ export class Reel extends PIXI.Container {
     // this.graphics = graphics;
     this.addChild(graphics);
 
-    // container.mask = graphics;
+    //this.mask = graphics;
   }
 
   createReel() {
@@ -98,6 +97,7 @@ export class Reel extends PIXI.Container {
   update() {
     if (this.symbolToSpin > 0) {
       this.moving();
+
     }
   }
 
@@ -107,13 +107,16 @@ export class Reel extends PIXI.Container {
 
   startSpining() {
     console.log('spinning');
+
   }
 
   startStopping() {
     console.log('stopping');
+    this.setSymbolToSpin(this.stripLength);
+    console.log(this.reelPosition);
   }
 
   setStopPosition(stopPosition) {
-
+    this.reelPosition = stopPosition;
   }
 }
