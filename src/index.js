@@ -4,11 +4,13 @@ import { UserInterfaceModule } from './js/modules/userInterface/UserInterface';
 import { Application } from './js/modules/application/Application';
 import { ServerModule } from './js/modules/server/Server';
 import { BigWinModule } from './js/modules/BigWin/BigWinModule';
+import { BgModule } from './js/modules/Bg/BgModule';
 
 
 
 
 
+moduleLoader.addModule("background", new BgModule);
 moduleLoader.addModule("application", new Application());
 moduleLoader.addModule("server", new ServerModule());
 moduleLoader.addModule("reels", new ReelsModule());

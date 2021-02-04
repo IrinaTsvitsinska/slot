@@ -2,10 +2,10 @@ import { ImageButton } from './ImageButton';
 import * as PIXI from 'pixi.js';
 
 export const textureButtons = {
-  buttonHover: 'images/continue_button_hover.png',
-  buttonNormal: 'images/continue_button_normal.png',
-  buttonPressed: 'images/continue_button_pressed.png',
-  buttonDisabled: 'images/continue_button_disabled.png',
+  buttonHover: 'images/btn_circle_hover.png',
+  buttonNormal: 'images/btn_circle_normal.png',
+  buttonPressed: 'images/btn_circle_pressed.png',
+  buttonDisabled: 'images/btn_circle_disabled.png',
 };
 
 export class TextButton extends ImageButton {

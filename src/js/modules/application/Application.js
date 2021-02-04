@@ -4,9 +4,9 @@ import * as PIXI from 'pixi.js';
 export class Application {
     constructor() {
         this.pixiApp = new PIXI.Application({
-            width: 1000,
-            height: 800,
-            backgroundColor: 0x1099bb,
+            width: 1280,
+            height: 1024,
+            backgroundColor: 0x070606,
             resolution: window.devicePixelRatio || 1,
         });
         this.tickerObject = [];
@@ -14,6 +14,10 @@ export class Application {
 
     init() {
         document.body.appendChild(this.pixiApp.view);
+
+
+        // this.pixiApp.stage.addChild(bg);
+        // this.pixiApp.stage.addChild(panel);
 
         this.pixiApp.ticker.add((/*delta*/) => {
             TWEEN.update();

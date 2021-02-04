@@ -11,11 +11,11 @@ export class ReelsModule {
         strips: STRIPS,
         coords: {
           x: 50,
-          y: 50
+          y: 0
         },
-        reelHorisontalOffset: 150,
+        reelHorisontalOffset: 200,
         reelAmount: 5,
-        symbolSize: 100,
+        symbolSize: 150,
         reelSymbolsAmount: 3,
 
       });

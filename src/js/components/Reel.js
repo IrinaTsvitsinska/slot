@@ -21,17 +21,20 @@ export class Reel extends PIXI.Container {
     this.cells = [];
     this.reelPosition = 0;
     this.symbolToSpin = 0;
+    this.reelStoppedCallback = reelStoppedCallback;
     this.createReel();
 
     const graphics = new PIXI.Graphics();
     graphics.position.set(0, symbolSize / 2);
     graphics.beginFill(0x00ffff, 0.5);
-    graphics.drawRect(-5, 0, symbolSize + 10, symbolSize * symbolAmount + 9);
+    graphics.drawRect(10, 0, symbolSize + 10, symbolSize * symbolAmount + 9);
     graphics.endFill();
     // this.graphics = graphics;
     this.addChild(graphics);
 
-    //this.mask = graphics;
+    this.state = 'stopped';
+
+    this.mask = graphics;
   }
 
   createReel() {
@@ -75,13 +78,13 @@ export class Reel extends PIXI.Container {
   moving() {
     let symbolSize = this.symbolSize;
     // console.log(this.reelPosition, symbolSize);
+
     if (this.reelPosition > this.symbolSize) {
       this.reelPosition = this.reelPosition % 3;
       this.symbolToSpin--;
 
-      //console.log('this.symbolToSpin ' + this.symbolToSpin);
       const nextSymbolName = this.filler.getNext();
-      // console.log('nextSymbolName ' + nextSymbolName);
+
       let lastSymbol = this.cells.pop();
       lastSymbol.setTexture(this.textures[nextSymbolName]);
       this.cells.unshift(lastSymbol);
@@ -91,32 +94,47 @@ export class Reel extends PIXI.Container {
       const symbol = this.cells[i];
       symbol.position.y = this.reelPosition + i * symbolSize;
     }
-    this.reelPosition += 10;
+    this.reelPosition += 50;
   }
 
   update() {
-    if (this.symbolToSpin > 0) {
-      this.moving();
+    if (this.state === "stopped") {
+      return;
+    }
+    this.moving();
 
+    if (this.symbolToSpin == 0 && this.state == 'stopping') {
+      this.state = 'stopped';
+      console.log(this.state);
+
+      console.log("REEL STOPPED");
+      this.reelStoppedCallback();
     }
   }
 
   setSymbolToSpin(symbolToSpin) {
+
     this.symbolToSpin = symbolToSpin;
   }
 
   startSpining() {
-    console.log('spinning');
-
+    this.state = 'spinning';
+    console.log(this.state);
   }
 
-  startStopping() {
-    console.log('stopping');
-    this.setSymbolToSpin(this.stripLength);
-    console.log(this.reelPosition);
+  startStopping(stopPosition) {
+    this.state = 'stopping';
+    this.setSymbolToSpin(2 * this.filler.getLength() - this.filler.getCurrentPosition() - stopPosition + 1);
+    console.log(this.state);
+
   }
 
   setStopPosition(stopPosition) {
     this.reelPosition = stopPosition;
+
+  }
+
+  getState() {
+    return this.state;
   }
 }

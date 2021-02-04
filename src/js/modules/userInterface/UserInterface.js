@@ -26,11 +26,11 @@ export class UserInterfaceModule {
     // window.bigWin = bigWin;
     const imgBtn = new TextButton(
       {
-        x: 400,
-        y: 500,
+        x: 596,
+        y: 629,
         width: 400,
         height: 70,
-        label: 'SpinButton',
+        label: '',
         textures: textureButtons,
         callback: () => {
           imgBtn.disable();

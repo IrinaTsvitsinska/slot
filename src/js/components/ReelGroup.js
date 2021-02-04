@@ -1,16 +1,17 @@
 import * as PIXI from 'pixi.js';
-import { STRIPS } from "../config/Constants";
+
 import { gameEvents } from '../core/EventSystem';
 import { Reel } from "./Reel";
 
 export class ReelGroup extends PIXI.Container {
-    constructor({ strips, coords = { x: x, y: y }, reelHorisontalOffset, reelAmount, symbolSize, reelSymbolsAmount/*, allReelsStoppedCallback */ }) {
+    constructor({ strips, coords = { x: x, y: y }, reelHorisontalOffset, reelAmount, symbolSize, reelSymbolsAmount, allReelsStoppedCallback }) {
         super();
         console.log(strips);
         this.position.set(coords.x, coords.y);
         this.y = coords.y;
         this.x = coords.x;
         this.reels = [];
+        this.stopPositions = [];
         //this.strips = STRIPS;
 
         this.createReels(reelAmount, reelHorisontalOffset, reelSymbolsAmount, symbolSize, strips/*, allReelsStoppedCallback-*/);
@@ -35,7 +36,14 @@ export class ReelGroup extends PIXI.Container {
     }
 
     onReelStop(reelIndex) {
-        // gameEvents.fire("spinComplete");
+        const nextReelIndex = reelIndex + 1;
+        if (this.reels[nextReelIndex] !== undefined) {
+            this.reels[nextReelIndex].startStopping(this.stopPositions[nextReelIndex]);;
+        } else {
+            gameEvents.fire("spinComplete");
+            // this.allReelsStoppedCallback();
+        }
+
     }
 
     update() {
@@ -52,22 +60,23 @@ export class ReelGroup extends PIXI.Container {
             reel.startSpining();
 
             // reel.startStopping(STRIPS[index].length + 3);
-            reel.setSymbolToSpin();
-        });
-
-        this.reels.forEach((reel, index) => {
-            setTimeout(() => {
-                this.reels[index].startStopping(STRIPS[index].length + 3);
-            }, 1000);
+            //reel.setSymbolToSpin();
         });
 
 
-        gameEvents.fire("spinComplete");
+
+
+
     }
 
     setStopPositions(stopPositions) {
-        for (let i = 0; i < stopPositions.length; i++) {
-            this.reels[i].setStopPosition(stopPositions[i]);
-        }
+        this.stopPositions = stopPositions;
+        setTimeout(() => {
+            this.reels[0].startStopping(stopPositions[0]);
+        }, 1000);
+
+        // for (let i = 0; i < stopPositions.length; i++) {
+        //     this.reels[i].setStopPosition(stopPositions[i]);
+        // }
     }
 }

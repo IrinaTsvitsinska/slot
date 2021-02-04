@@ -8,10 +8,43 @@ import TWEEN from '@tweenjs/tween.js';
 import { testBtnsGroup } from './testBtbsGroup';
 import { gameEvents } from '../core/EventSystem';
 
+const BigWinLevelsConfig = [
+    {
+        title: "Big Win",
+        winValueMin: 0,
+        winValueMax: 199.99,
+        style: {
+            colorText: 'green',
+            fontSize: 30
+        }
+    },
+    {
+        title: "Mega Win",
+        winValueMin: 200,
+        winValueMax: 499.99,
+        style: {
+            colorText: 'blue',
+            fontSize: 30
+        }
+    },
+    {
+        title: "Super Mega Win",
+        winValueMin: 500,
+        winValueMax: +Infinity,
+        style: {
+            colorText: 'red',
+            fontSize: 30
+        }
+    }
+];
 
 export class BigWin extends PIXI.Container {
-    constructor({ coords = { x: x, y: y }, width, height }) {
+    constructor({ coords, width, height }) {
         super();
+
+        const { x, y } = coords;
+
+        console.log({ x, y });
 
         const titleText = new TextTitle({ x: width / 2, y: height / 3, text: "Big Win!!!", color: 0xFFCC33, size: "50px" });
         // const countUpAnimHolder = new Counter({ x: coords.x, y: coords.y, winValue });
@@ -25,30 +58,6 @@ export class BigWin extends PIXI.Container {
 
         this.countUpAnimHolder = countUpAnimHolder;
         this.position.set(coords.x, coords.y);
-        this.levels = {
-            BigWin: {
-                winValueMin: 10,
-                style: {
-                    colorText: 'green',
-                    fontSize: 30
-                }
-            },
-            MegaWin: {
-                winValueMin: 200,
-                style: {
-                    colorText: 'blue',
-                    fontSize: 30
-                }
-            },
-            SuperMegaWin: {
-                winValueMin: 500,
-                style: {
-                    colorText: 'red',
-                    fontSize: 30
-                }
-            }
-
-        }
 
         this.addChild(background);
         this.addChild(titleText);
@@ -56,8 +65,6 @@ export class BigWin extends PIXI.Container {
         this.buttons = new PIXI.Container;
         this.addChild(this.buttons);
         this.createTestButtons();
-        this.megaWinValue = 300;
-        this.megaSuperWinValue = 500;
 
         // this.visible = false;
         this.background = background;
@@ -69,25 +76,35 @@ export class BigWin extends PIXI.Container {
 
     start(value, callback) {
         this.show();
-        this.isBigWin(true);
-        if (value > this.megaWinValue) {
-            this.isMegaWin(true);
-        }
-        if (value > this.megaSuperWinValue) {
-            this.isSuperMegaWin(true);
-        }
-        this.countUpAnimHolder.start(value, () => {
-            setTimeout(() => {
-                this.hide();
+        this.level = -1;
 
-                gameEvents.fire("bigWinEnd");
-                // callback();
-            }, 2000)
+        this.preparePresentation(value);
+    }
+
+    preparePresentation(finalValue) {
+        this.level++;
+        this.playPresentation(BigWinLevelsConfig[this.level], finalValue);
+    }
+
+    playPresentation({ title, winValueMin, winValueMax, style }, finalValue) {
+        this.setStyle(style, title);
+        const hasNextLevel = finalValue > winValueMax;
+        const value = hasNextLevel ? winValueMax : finalValue;
+
+        this.countUpAnimHolder.start(winValueMin, value, () => {
+
+            if (hasNextLevel) {
+                this.preparePresentation(finalValue);
+            } else {
+                setTimeout(() => {
+                    this.hide();
+
+                    gameEvents.fire("bigWinEnd");
+                    // callback();
+                }, 2000)
+
+            }
         });
-
-
-
-
     }
 
     show() {
@@ -154,11 +171,12 @@ export class BigWin extends PIXI.Container {
     //     //return currentLevel;
     // }
 
-    setStyle(level, levelTitle) {
-        console.log(level);
-        this.countUpAnimHolder.setStyle({ colorText: level.style.colorText, fontSize: level.style.fontSize });
+    setStyle(levelStyle, levelTitle) {
+        this.countUpAnimHolder.setStyle({ colorText: levelStyle.colorText, fontSize: levelStyle.fontSize });
         this.titleText.setText(levelTitle);
-        this.titleText.setStyle({ colorText: 'Brown', fontSize: level.style.fontSize + 6 });
+        this.titleText.setStyle({ colorText: 'Brown', fontSize: levelStyle.fontSize + 6 });
 
     }
 }
+
+

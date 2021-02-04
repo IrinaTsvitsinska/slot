@@ -20,7 +20,7 @@ export class testBtnsGroup extends PIXI.Container {
         const bigWinBtn = new TextButton(
             {
                 x: 50,
-                y: 600,
+                y: 900,
                 width: 200,
                 height: 70,
                 label: 'bigWin',
@@ -39,7 +39,7 @@ export class testBtnsGroup extends PIXI.Container {
         const megaWinBtn = new TextButton(
             {
                 x: 300,
-                y: 600,
+                y: 900,
                 width: 200,
                 height: 70,
                 label: ' megaWin',
@@ -55,7 +55,7 @@ export class testBtnsGroup extends PIXI.Container {
         const megaSuperWinBtn = new TextButton(
             {
                 x: 550,
-                y: 600,
+                y: 900,
                 width: 200,
                 height: 70,
                 label: 'SuperWin',

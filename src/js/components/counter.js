@@ -17,11 +17,11 @@ export class Counter extends PIXI.Container {
         this.hide();
     }
 
-    start(value, callback) {
+    start(startvalue, stopValue, callback) {
         this.show();
-        const countUpAnimHolder = new TWEEN.Tween({ value: 0 });
+        const countUpAnimHolder = new TWEEN.Tween({ value: startvalue });
 
-        countUpAnimHolder.to({ value: value }, COUNTUP_DURATION / 2);
+        countUpAnimHolder.to({ value: stopValue }, COUNTUP_DURATION / 2);
         countUpAnimHolder.onUpdate((param) => {
             const text = (param.value).toFixed(2);
 
