@@ -124,8 +124,8 @@ export class Reel extends PIXI.Container {
 
   startStopping(stopPosition) {
     this.state = 'stopping';
-    this.setSymbolToSpin(2 * this.filler.getLength() - this.filler.getCurrentPosition() - stopPosition + 1);
-    console.log(this.state);
+    this.setSymbolToSpin(2 * this.filler.getLength() - this.filler.getCurrentPosition() + stopPosition + this.symbolAmount);
+    console.log(this.state, 'reel', this.id);
 
   }
 

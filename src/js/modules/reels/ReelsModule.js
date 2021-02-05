@@ -10,7 +10,7 @@ export class ReelsModule {
       {
         strips: STRIPS,
         coords: {
-          x: 50,
+          x: 90,
           y: 0
         },
         reelHorisontalOffset: 200,
