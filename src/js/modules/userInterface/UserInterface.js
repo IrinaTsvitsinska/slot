@@ -1,4 +1,5 @@
 
+import { MoneyFild } from "../../components/MoneyFild";
 import { TextButton, textureButtons } from "../../components/TextButton";
 import { ValueSelector } from "../../components/ValueSelector";
 import { gameEvents } from "../../core/EventSystem";
@@ -11,14 +12,14 @@ export class UserInterfaceModule {
   }
   load({ application }) {
 
-    const valueSelector = new ValueSelector(
+    this.valueSelector = new ValueSelector(
       {
-        x: 500,
-        y: 10,
-        height: 70,
-        width: 300,
+        x: 880,
+        y: 654,
+        height: 50,
+        width: 90,
         values: [0.1, 0.2, 0.5, 1, 2, 5],
-        label: 'Credits'
+        label: 'Bet'
       });
 
 
@@ -43,14 +44,16 @@ export class UserInterfaceModule {
 
     );
 
-
-
+    this.moneyFild = new MoneyFild({ x: 1030, y: 630, title: 'Money', width: 220, height: 100 });
 
     gameEvents.on("spinComplete", () => imgBtn.enable());
 
     application.getStage().addChild(imgBtn);
-    application.getStage().addChild(valueSelector);
+    application.getStage().addChild(this.valueSelector);
+    application.getStage().addChild(this.moneyFild);
     // application.getStage().addChild(bigWin);
 
   }
+
+
 }

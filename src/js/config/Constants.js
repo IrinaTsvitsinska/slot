@@ -49,11 +49,31 @@ const ASSETS = {
 };
 
 const texturesValueSelector = {
-  buttonHover: 'images/valueSelectorButton/continue_button_hover.png',
-  buttonNormal: 'images/valueSelectorButton/continue_button_normal.png',
-  buttonPressed: 'images/valueSelectorButton/continue_button_pressed.png',
-  buttonDisabled: 'images/valueSelectorButton/continue_button_disabled.png',
+  left: {
+    buttonHover: 'images/valueSelectorButton/ValSelect_Left_hover.png',
+    buttonNormal: 'images/valueSelectorButton/ValSelect_Left_normal.png',
+    buttonPressed: 'images/valueSelectorButton/ValSelect_Left_pressed.png',
+    buttonDisabled: 'images/valueSelectorButton/ValSelect_Left_disabled.png',
+  },
+  right: {
+    buttonHover: 'images/valueSelectorButton/ValSelect_Right_hover.png',
+    buttonNormal: 'images/valueSelectorButton/ValSelect_Right_normal.png',
+    buttonPressed: 'images/valueSelectorButton/ValSelect_Right_pressed.png',
+    buttonDisabled: 'images/valueSelectorButton/ValSelect_Right_disabled.png',
+  }
 };
+// const texturesValueSelectorRight = {
+//   buttonHover: 'images/valueSelectorButton/ValSelect_Right_hover.png',
+//   buttonNormal: 'images/valueSelectorButton/ValSelect_Right_normal.png',
+//   buttonPressed: 'images/valueSelectorButton/ValSelect_Right_pressed.png',
+//   buttonDisabled: 'images/valueSelectorButton/ValSelect_Right_disabled.png',
+// };
+// const texturesValueSelectorLeft = {
+//   buttonHover: 'images/valueSelectorButton/ValSelect_Left_hover.png',
+//   buttonNormal: 'images/valueSelectorButton/ValSelect_Left_normal.png',
+//   buttonPressed: 'images/valueSelectorButton/ValSelect_Left_pressed.png',
+//   buttonDisabled: 'images/valueSelectorButton/ValSelect_Left_disabled.png',
+// };
 
 const BigWinBtnTextures = {
   buttonHover: 'images/bigWinBtnTextures/continue_button_hover.png',

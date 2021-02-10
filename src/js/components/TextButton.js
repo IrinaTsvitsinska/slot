@@ -20,7 +20,7 @@ export class TextButton extends ImageButton {
       dropShadowColor: '#e2c065',
       fontWeight: 'bold',
       letterSpacing: 7,
-      fill: '#443413',
+      fill: '#E6E6FA',
     };
     const buttonLabel = new PIXI.Text(label, style);
     buttonLabel.position.set(width / 2, height / 2);

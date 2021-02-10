@@ -5,13 +5,21 @@ export class ServerModule {
   init() {
     this.server = new Server();
   }
-  load() {
-
+  load({ userInterface }) {
+    this.valueSelector = userInterface.valueSelector;
+    gameEvents.on("spinButtonClick", () => {
+      this.serverResponse = this.server.makeSpin({ bet: this.valueSelector.getCurrentValue() });
+    });
+    gameEvents.on("spinComplete", () => {
+      console.log(this.serverResponse);
+      console.log('win', this.serverResponse.win);
+      userInterface.moneyFild.setValue(this.serverResponse.money);
+    });
   }
 
 
   getStopPositions() {
-    console.log(this.server.makeSpin(1));
-    return this.server.getRandomStopPosition();
+
+    return this.serverResponse.stopPositions;
   }
 }

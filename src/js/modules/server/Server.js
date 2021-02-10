@@ -15,11 +15,11 @@ export class Server {
 
 
     getRandomStopPosition() {
-        let stopPositions = [1, 1, 1, 1, 1];
-        // for (let i = 0; i < STRIPS.length; i++) {
-        //     stopPositions.push(Math.round(Math.random() * STRIPS[i].length));
-        // }
-
+        let stopPositions = [];
+        for (let i = 0; i < STRIPS.length; i++) {
+            stopPositions.push(Math.round(Math.random() * STRIPS[i].length));
+        }
+        console.log(stopPositions);
         return stopPositions;
     }
 
@@ -42,16 +42,13 @@ export class Server {
         return currentCombination;
     }
 
-    makeSpin(bet, fakeStopPosition) {
+    makeSpin({ bet, fakeStopPosition }) {
+        console.log('bet', bet);
         this.stopPositions = fakeStopPosition ? fakeStopPosition : this.getRandomStopPosition();
         this.outcome = this.getCurrentCombination(this.stopPositions);
         this.winSituations = this.getWinSituations(this.outcome, WIN_LINES, bet);
-        this.win = 0;
-        for (let i = 0; i < this.winSituations.length; i++) {
-            this.win += +this.winSituations[i].value;
-            console.log(this.winSituations[i]);
-        }
-        this.money = (this.money - bet + this.win).toFixed(2);
+        this.win = this.calculateWinValue(this.winSituations);
+        this.money = (this.money - bet + this.win).toFixed(2);;
 
         return {
             stopPositions: this.stopPositions,
@@ -95,6 +92,16 @@ export class Server {
         }
 
         return winSituations;
+    }
+
+    calculateWinValue(winSituations) {
+        let win = 0;
+        for (let i = 0; i < winSituations.length; i++) {
+            win += +winSituations[i].value;
+            console.log(winSituations[i]);
+        }
+
+        return win;
     }
 
     getWinSymbolAmount(line) {

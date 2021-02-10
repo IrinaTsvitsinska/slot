@@ -5,7 +5,7 @@ export class TextFieldValue extends PIXI.Container {
     constructor({ x, y, width, height, label, value }) {
         super();
         const style = new PIXI.TextStyle({
-            fill: 0x8B4513,//"lime",
+            fill: 0x8B008B,//"lime",
             dropShadow: true,
             dropShadowColor: "#F4A460",
             dropShadowDistance: 3,

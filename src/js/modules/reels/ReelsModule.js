@@ -22,14 +22,13 @@ export class ReelsModule {
 
   }
 
-  load({ application, server }) {
+  load({ application, server, }) {
     application.getStage().addChild(this.reelGroup);
 
     application.addToTicker(() => this.reelGroup.update());
 
     gameEvents.on("spinButtonClick", () => {
       this.reelGroup.startSpin();
-
       const stopPositions = server.getStopPositions();
       this.reelGroup.setStopPositions(stopPositions);
     });

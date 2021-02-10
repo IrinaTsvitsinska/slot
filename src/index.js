@@ -12,9 +12,11 @@ import { BgModule } from './js/modules/Bg/BgModule';
 
 moduleLoader.addModule("background", new BgModule);
 moduleLoader.addModule("application", new Application());
+moduleLoader.addModule("userInterface", new UserInterfaceModule());
 moduleLoader.addModule("server", new ServerModule());
 moduleLoader.addModule("reels", new ReelsModule());
-moduleLoader.addModule("userInterface", new UserInterfaceModule());
+
 moduleLoader.addModule("bigWin", new BigWinModule());
+
 
 moduleLoader.initModules();

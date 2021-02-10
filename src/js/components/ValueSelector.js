@@ -7,18 +7,19 @@ export class ValueSelector extends PIXI.Container {
 
     constructor({ x, y, height, width, values, label }) {
         super();
-        const buttonWidth = 70;
+        const buttonWidth = 35;
+
 
         const buttonMinus = new TextButton(
-            { x: 0, y: 0, width: buttonWidth, height: height, label: " - ", textures: texturesValueSelector, callback: () => { this.velueDecrement() } });
+            { x: -buttonWidth - 7, y: 0, width: buttonWidth, height: height, label: " - ", textures: texturesValueSelector.left, callback: () => { this.velueDecrement() } });
         const buttonPlus = new TextButton(
-            { x: width - buttonWidth, y: 0, width: buttonWidth, height: height, label: " + ", textures: texturesValueSelector, callback: () => { this.velueIncrement() } }
+            { x: width + 7, y: 0, width: buttonWidth, height: height, label: " + ", textures: texturesValueSelector.right, callback: () => { this.velueIncrement() } }
         );
 
         const textFildValue = new TextFieldValue({
-            x: buttonWidth,
+            x: 0,
             y: 0,
-            width: width - buttonWidth * 2,
+            width: width,
             height: height - height / 10,
             label: label,
             value: values[0],
@@ -26,8 +27,8 @@ export class ValueSelector extends PIXI.Container {
 
 
         const graphics = new PIXI.Graphics;
-        graphics.lineStyle(4, 0xA0522D, 2);
-        graphics.beginFill(0xFFDEAD);
+        graphics.lineStyle(4, 0x800080, 2);
+        graphics.beginFill(0xD8BFD8);
         graphics.drawRect(0, 0, width, height);
 
         this.currentValue = values[0];

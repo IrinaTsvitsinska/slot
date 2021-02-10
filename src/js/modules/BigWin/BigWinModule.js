@@ -31,7 +31,7 @@ export class BigWinModule {
             }
         });
         this.bigWin.addChild(this.buttons);
-        gameEvents.on("spinComplete", () => { this.bigWin.start(Math.round(Math.random() * 1000) + 10) });
+        // gameEvents.on("spinComplete", () => { this.bigWin.start(Math.round(Math.random() * 1000) + 10) });
 
     }
 }

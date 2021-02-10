@@ -15,7 +15,7 @@ export class ReelGroup extends PIXI.Container {
         //this.strips = STRIPS;
 
         this.createReels(reelAmount, reelHorisontalOffset, reelSymbolsAmount, symbolSize, strips/*, allReelsStoppedCallback-*/);
-        console.log(this.reels);
+        // console.log(this.reels);
     }
 
     createReels(reelAmount, reelHorisontalOffset, symbolAmount, symbolSize, strips/*, allReelsStoppedCallback*/) {
